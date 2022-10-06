@@ -9,7 +9,7 @@ class Data:
     SCREEN_WIDTH = 1920
     SCREEN_HEIGHT = 1080
     GRID_DIM = 15
-    WORLD = ip.initialize("Spiral 2/1920_by_1080.csv")
+    WORLD = ip.initialize("1920_by_1080_2.csv")
     img_w = 16
     img_h = 9
     dims = width, height = SCREEN_WIDTH, SCREEN_HEIGHT 

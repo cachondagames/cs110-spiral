@@ -1,2 +1,2 @@
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-=INDEX(data,RANDBETWEEN(1,ROWS(data)),1)
+=INDEX(Table1[Column1],RANDBETWEEN(1,ROWS(Table1[Column1])),1)
