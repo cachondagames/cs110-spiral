@@ -23,10 +23,11 @@ class Jet():
     def draw(self, win):
         img_copy = pygame.transform.rotate(self.plane, self.angle)
         rotated_rect = img_copy.get_rect(center = (round(self.x), round(self.y)))
+        rotated_rect.size = (20,20)
+        rotated_rect.center = (self.x + 30, self.y - 20)
         self.rect = rotated_rect
-        rotated_rect.width - 100
-        rotated_rect.height - 100
         pygame.draw.rect(win, (255,0,0), rotated_rect)
+        pygame.draw.rect(win, (0,255,0), self.rect)
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):

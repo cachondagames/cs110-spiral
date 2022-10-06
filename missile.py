@@ -24,8 +24,12 @@ class Missile():
         
     def draw(self, win):
         img_copy = pygame.transform.rotate(self.missile, self.angle)
-        rotated_rect = img_copy.get_rect(center = (round(self.x), round(self.y)))
+        rotated_rect = img_copy.get_rect()
+        rotated_rect.size = (20,20)
+        rotated_rect.x = self.x
+        rotated_rect.y = self.y
         self.rect = rotated_rect
+        pygame.draw.rect(win, (0,0,255), rotated_rect)
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):
