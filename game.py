@@ -40,7 +40,7 @@ class Game(object):
             self.jets()
             while self.DATA.RUNNING:
                 self.DATA.WIN.blit(self.DATA.BACKGROUND, (0,0))
-                listener.Listeners.listen_keyboard(Jets[0], Jets[1])
+                listener.listen_keyboard(Jets[0], Jets[1])
                 pygame.display.flip()
             Jets.clear()
             Game().start()

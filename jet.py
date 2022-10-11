@@ -23,11 +23,10 @@ class Jet():
     def draw(self, win):
         img_copy = pygame.transform.rotate(self.plane, self.angle)
         rotated_rect = img_copy.get_rect(center = (round(self.x), round(self.y)))
-        rotated_rect.size = (20,20)
-        rotated_rect.center = (self.x + 30, self.y - 20)
-        self.rect = rotated_rect
-        pygame.draw.rect(win, (255,0,0), rotated_rect)
-        pygame.draw.rect(win, (0,255,0), self.rect)
+        x1, y1 = rotate_point(self.x - 20, self.y + 10, self.angle/57.2957795, self.x, self.y)
+        x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
+        x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
+        self.rect = pygame.draw.polygon(self.plane, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):
@@ -51,6 +50,22 @@ class Jet():
             self.missile_cooldown = True
         else:
             self.missile_cooldown = False
+    
+def rotate_point(rx, ry, angle, px, py):
+  s = math.sin(angle)
+  c = math.cos(angle)
+ 
+  rx -= px
+  ry -= py
+ 
+  xnew = rx * c - ry * s
+  ynew = -(rx * s + ry * c)
+ 
+  rx = xnew + px
+  ry = ynew + py
+  
+  return rx,ry
+
         
 
 
