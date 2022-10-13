@@ -14,6 +14,8 @@ class Data:
     img_h = 9
     dims = width, height = SCREEN_WIDTH, SCREEN_HEIGHT 
     WIN = pygame.display.set_mode(dims)
+    COLS = pygame.Surface((1920,1080))
+    COLS.set_alpha(0)
     pygame.display.set_caption('CS110 Flight Simulator')
     icon = pygame.image.load("images/airplane.jpg")
     pygame.display.set_icon(icon)

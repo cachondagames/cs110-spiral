@@ -26,7 +26,7 @@ class Game(object):
                  [sg.B("2 Player", size = (25,1)), sg.B("1 Player", size = (25, 1))]]      
 
         window = sg.Window('CS110 Flight Simulator', layout)    
-        event, values = window.read()    
+        event = window.read()    
         window.close()
         if event == "2 Player":
             gameType = "2 Player"
@@ -49,7 +49,7 @@ class Game(object):
             
     def jets(self):
         global Jets
-        Jet1 = jet.Jet(random.randint(self.DATA.SCREEN_WIDTH/4 , self.DATA.SCREEN_WIDTH * (3/4)), random.randint(self.DATA.SCREEN_HEIGHT/4 , self.DATA.SCREEN_HEIGHT * (3/4)), False, self.DATA)
-        Jet2 = jet.Jet(random.randint(self.DATA.SCREEN_WIDTH/4 , self.DATA.SCREEN_WIDTH * (3/4)), random.randint(self.DATA.SCREEN_HEIGHT/4 , self.DATA.SCREEN_HEIGHT * (3/4)), True, self.DATA)
+        Jet1 = jet.Jet(random.randint(int(self.DATA.SCREEN_WIDTH/4) , int(self.DATA.SCREEN_WIDTH * (3/4))), random.randint(int(self.DATA.SCREEN_HEIGHT/4) , int(self.DATA.SCREEN_HEIGHT * (3/4))), False, self.DATA)
+        Jet2 = jet.Jet(random.randint(int(self.DATA.SCREEN_WIDTH/4) , int(self.DATA.SCREEN_WIDTH * (3/4))), random.randint(int(self.DATA.SCREEN_HEIGHT/4) , int(self.DATA.SCREEN_HEIGHT * (3/4))), True, self.DATA)
         Jets.append(Jet1)
         Jets.append(Jet2)

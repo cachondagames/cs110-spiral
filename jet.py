@@ -26,7 +26,7 @@ class Jet():
         x1, y1 = rotate_point(self.x - 20, self.y + 10, self.angle/57.2957795, self.x, self.y)
         x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
         x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
-        self.rect = pygame.draw.polygon(self.plane, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
+        self.rect = pygame.draw.polygon(win, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):
@@ -36,14 +36,14 @@ class Jet():
             dist = math.hypot(dx, dy)
             self.x += min(dist, speed) * dx/dist
             self.y += min(dist, speed) * dy/dist
-            if self.x >= self.DATA.SCREEN_WIDTH - 325:
-                self.x = self.DATA.SCREEN_WIDTH - 325
-            elif self.x <= 0 + 325:
-                self.x = 0 + 325
-            elif self.y >= self.DATA.SCREEN_HEIGHT - 200:
-                self.y = self.DATA.SCREEN_HEIGHT - 200
-            elif self.y <= 0 + 200:
-                self.y = 0 + 200
+            if self.x >= self.DATA.SCREEN_WIDTH:
+                self.x = self.DATA.SCREEN_WIDTH
+            if self.x <= 0:
+                self.x = 0
+            if self.y >= self.DATA.SCREEN_HEIGHT:
+                self.y = self.DATA.SCREEN_HEIGHT
+            if self.y <= 0:
+                self.y = 0
     
     def missileCooldown(self):
         if self.DATA.GLOBAL_TIMER.getTime() - self.missile_cooldown_time_int >= 1:

@@ -28,7 +28,7 @@ class Missile():
         x1, y1 = rotate_point(self.x - 20, self.y + 10, self.angle/57.2957795, self.x, self.y)
         x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
         x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
-        self.rect = pygame.draw.polygon(self.missile, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
+        self.rect = pygame.draw.polygon(win, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):
