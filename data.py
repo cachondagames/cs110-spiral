@@ -9,7 +9,7 @@ class Data:
     SCREEN_WIDTH = 1920
     SCREEN_HEIGHT = 1080
     GRID_DIM = 15
-    WORLD = ip.initialize("1920_by_1080_2.csv")
+    WORLD = ip.initialize("1920_by_1080.csv")
     img_w = 16
     img_h = 9
     dims = width, height = SCREEN_WIDTH, SCREEN_HEIGHT 
@@ -24,4 +24,5 @@ class Data:
     GLOBAL_TIMER.start()
     RUNNING = True
     font = pygame.freetype.SysFont("Comic Sans MS", 80)
+    AI_DIFF = 60
     

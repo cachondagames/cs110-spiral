@@ -20,13 +20,13 @@ class Jet():
         self.rect = self.plane.get_rect()
         self.angle = 0
     
-    def draw(self, win):
+    def draw(self, win, col):
         img_copy = pygame.transform.rotate(self.plane, self.angle)
         rotated_rect = img_copy.get_rect(center = (round(self.x), round(self.y)))
         x1, y1 = rotate_point(self.x - 20, self.y + 10, self.angle/57.2957795, self.x, self.y)
         x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
         x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
-        self.rect = pygame.draw.polygon(win, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
+        self.rect = pygame.draw.polygon(col, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):

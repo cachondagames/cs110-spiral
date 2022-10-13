@@ -59,16 +59,16 @@ def listen_keyboard(Jet1, Jet2 = None):
             else:
                 Jet2.missileCooldown()
         Jet1.move(.5)
-        Jet1.draw(Jet1.DATA.COLS)
+        Jet1.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
         Jet2.move(.5)
-        Jet2.draw(Jet2.DATA.COLS)
+        Jet2.draw(Jet2.DATA.WIN, Jet2.DATA.COLS)
         if len(Jet1.missiles) > 0:
             for mis in Jet1.missiles:
                 if mis.moveChecker() and mis.check == True:
                     mis.explode()
                     mis.move(0)
                     mis.angle = 0
-                    mis.draw(mis.DATA.COLS)
+                    mis.draw(mis.DATA.WIN, Jet1.DATA.COLS)
                     mis.timeexploded = Jet1.DATA.GLOBAL_TIMER.getTime()
                     check = False
                     continue
@@ -77,7 +77,7 @@ def listen_keyboard(Jet1, Jet2 = None):
                     continue
                 if mis.check:
                     mis.move(1.5)
-                    mis.draw(Jet1.DATA.COLS)
+                    mis.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
                     if mis.rect.collidepoint((Jet2.rect.centerx,Jet2.rect.centery)):
                         mis.DATA.RUNNING = False
                         text = mis.DATA.font.render("Player 1 Wins!" , (0,0,0))
@@ -87,14 +87,14 @@ def listen_keyboard(Jet1, Jet2 = None):
                         time.sleep(5)
                 else:
                     mis.move(0)
-                    mis.draw(mis.DATA.WIN)
+                    mis.draw(mis.DATA.WIN, Jet1.DATA.COLS)
         if len(Jet2.missiles) > 0:
             for mis in Jet2.missiles:
                 if mis.moveChecker() and mis.check == True:
                     mis.explode()
                     mis.move(0)
                     mis.angle = 0
-                    mis.draw(mis.DATA.WIN)
+                    mis.draw(mis.DATA.WIN, Jet2.DATA.COLS)
                     mis.timeexploded = Jet2.DATA.GLOBAL_TIMER.getTime()
                     check = False
                     continue
@@ -103,7 +103,7 @@ def listen_keyboard(Jet1, Jet2 = None):
                     continue
                 if mis.check:
                     mis.move(1.5)
-                    mis.draw(Jet2.DATA.WIN)
+                    mis.draw(Jet2.DATA.WIN, Jet2.DATA.COLS)
                     if mis.rect.collidepoint((Jet1.rect.centerx,Jet1.rect.centery)):
                         mis.DATA.RUNNING = False
                         text = mis.DATA.font.render("Player 2 Wins!" , (0,0,0))
@@ -113,4 +113,4 @@ def listen_keyboard(Jet1, Jet2 = None):
                         time.sleep(5)
                 else:
                     mis.move(0)
-                    mis.draw(mis.DATA.WIN)
+                    mis.draw(mis.DATA.WIN, Jet2.DATA.COLS)

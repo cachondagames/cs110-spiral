@@ -6,6 +6,7 @@ import listener
 import random
 import sys
 import PySimpleGUI as sg
+import ai_listener
 
 WORLD = world.World()
 Jets = []
@@ -26,7 +27,7 @@ class Game(object):
                  [sg.B("2 Player", size = (25,1)), sg.B("1 Player", size = (25, 1))]]      
 
         window = sg.Window('CS110 Flight Simulator', layout)    
-        event = window.read()    
+        event, values = window.read()    
         window.close()
         if event == "2 Player":
             gameType = "2 Player"
@@ -41,6 +42,14 @@ class Game(object):
             while self.DATA.RUNNING:
                 self.DATA.WIN.blit(self.DATA.BACKGROUND, (0,0))
                 listener.listen_keyboard(Jets[0], Jets[1])
+                pygame.display.flip()
+            Jets.clear()
+            Game().start()
+        elif gameType == "1 Player":
+            self.jets()
+            while self.DATA.RUNNING:
+                self.DATA.WIN.blit(self.DATA.BACKGROUND, (0,0))
+                ai_listener.listen_keyboard(Jets[0], Jets[1])
                 pygame.display.flip()
             Jets.clear()
             Game().start()
