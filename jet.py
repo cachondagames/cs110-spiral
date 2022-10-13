@@ -19,6 +19,7 @@ class Jet():
             self.plane = pygame.transform.scale(self.plane, (50, 50))
         self.rect = self.plane.get_rect()
         self.angle = 0
+        self.vect = pygame.Vector2(self.rect.centerx,self.rect.centery)
     
     def draw(self, win, col):
         img_copy = pygame.transform.rotate(self.plane, self.angle)
@@ -27,6 +28,8 @@ class Jet():
         x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
         x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
         self.rect = pygame.draw.polygon(col, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
+        self.vect.x = self.rect.centerx
+        self.vect.y = self.rect.centery
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):
