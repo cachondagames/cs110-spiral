@@ -39,14 +39,21 @@ def ai_move(Jet1, JetAi):
     text = Jet1.DATA.font.render(str(move_angle) + "  " + str(JetAi.angle) , (0,0,0))
     text_rect = text[0].get_rect(center=(Jet1.DATA.SCREEN_WIDTH/2, Jet1.DATA.SCREEN_HEIGHT/2))
     Jet1.DATA.WIN.blit(text[0], text_rect)
-    if JetAi.angle + move_angle > 360:
-        temp = (JetAi.angle + move_angle) - 360
-        JetAi.angle = 0 + temp
-    if JetAi.angle - move_angle < 0:
-        temp = JetAi.angle - move_angle
-        JetAi.angle = 360 + temp
-    else:
-        JetAi.angle += move_angle
+    if JetAi.angle != Jet1.angle:
+        JetAi.angle - move_angle
+        JetAi.angle + move_angle
+        if move_angle < 180:
+            if JetAi.angle == 360:
+                JetAi.angle = 1
+                JetAi.angle += 1
+            else: 
+                JetAi.angle += 1
+        else:
+            if JetAi.angle == 0:
+                JetAi.angle = 359
+                JetAi.angle -= 1
+            else:
+                JetAi.angle -= 1
 
 def translate(coords):
     if coords[0] >= 960:
