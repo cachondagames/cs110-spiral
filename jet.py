@@ -1,7 +1,7 @@
 import pygame
 import math
 
-class Jet():
+class Jet(pygame.Surface):
     def __init__(self, xcoord, ycoord, second, data):
         self.missiles = []
         self.second = second
@@ -28,8 +28,6 @@ class Jet():
         x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
         x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
         self.rect = pygame.draw.polygon(col, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
-        self.vect.x = self.rect.centerx
-        self.vect.y = self.rect.centery
         win.blit(img_copy, rotated_rect)
         
     def move(self, speed):
@@ -49,7 +47,7 @@ class Jet():
                 self.y = 0
     
     def missileCooldown(self):
-        if self.DATA.GLOBAL_TIMER.getTime() - self.missile_cooldown_time_int >= 1:
+        if self.DATA.GLOBAL_TIMER.getTime() - self.missile_cooldown_time_int >= 3:
             self.missile_cooldown = True
         else:
             self.missile_cooldown = False

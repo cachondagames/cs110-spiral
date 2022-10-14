@@ -24,5 +24,6 @@ class Data:
     GLOBAL_TIMER.start()
     RUNNING = True
     font = pygame.freetype.SysFont("Comic Sans MS", 80)
-    AI_DIFF = 60
+    AI_SPEED = 1
+    AI_MISSILE_COOLDOWN = 3
     

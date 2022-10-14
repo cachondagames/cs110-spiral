@@ -2,6 +2,7 @@ import pygame
 import sys
 import missile
 import math
+import time
 
 def listen_keyboard(Jet1, JetAi):
     for event in pygame.event.get():
@@ -17,63 +18,90 @@ def listen_keyboard(Jet1, JetAi):
             Jet1.angle = 359
         else:
             Jet1.angle -= 1
-    Jet1.move(1)
+    Jet1.move(2)
     Jet1.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
     ai_move(Jet1, JetAi)
-    JetAi.move(1)
+    JetAi.move(JetAi.DATA.AI_SPEED)
     JetAi.draw(JetAi.DATA.WIN, JetAi.DATA.COLS)
+    if key[pygame.K_SPACE]:
+        if Jet1.missile_cooldown == True:
+            Jet1.missiles.append(missile.Missile(Jet1.x, Jet1.y, Jet1.angle, Jet1.DATA))
+            Jet1.missile_cooldown_time_int = Jet1.DATA.GLOBAL_TIMER.getTime()
+            Jet1.missileCooldown()
+        else:
+            Jet1.missileCooldown()
+
+    if len(Jet1.missiles) > 0:
+        for mis in Jet1.missiles:
+            if mis.moveChecker() and mis.check == True:
+                mis.explode()
+                mis.move(0)
+                mis.angle = 0
+                mis.draw(mis.DATA.WIN, Jet1.DATA.COLS)
+                mis.timeexploded = Jet1.DATA.GLOBAL_TIMER.getTime()
+                check = False
+                continue
+            if mis.check == False and mis.timeChecker():
+                Jet1.missiles.pop(Jet1.missiles.index(mis))
+                continue
+            if mis.check:
+                mis.move(1.5)
+                mis.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
+                if mis.rect.collidepoint((JetAi.rect.centerx,JetAi.rect.centery)):
+                    mis.DATA.RUNNING = False
+                    text = mis.DATA.font.render("Player 1 Wins!" , (0,0,0))
+                    text_rect = text[0].get_rect(center=(mis.DATA.SCREEN_WIDTH/2, mis.DATA.SCREEN_HEIGHT/2))
+                    mis.DATA.WIN.blit(text[0], text_rect)
+                    pygame.display.flip()
+                    time.sleep(5)
+            else:
+                mis.move(0)
+                mis.draw(mis.DATA.WIN, Jet1.DATA.COLS)
+    if len(JetAi.missiles) > 0:
+        for mis in JetAi.missiles:
+            if mis.moveChecker() and mis.check == True:
+                mis.explode()
+                mis.move(0)
+                mis.angle = 0
+                mis.draw(mis.DATA.WIN, JetAi.DATA.COLS)
+                mis.timeexploded = JetAi.DATA.GLOBAL_TIMER.getTime()
+                check = False
+                continue
+            if mis.check == False and mis.timeChecker():
+                JetAi.missiles.pop(JetAi.missiles.index(mis))
+                continue
+            if mis.check:
+                mis.move(1.5)
+                mis.draw(JetAi.DATA.WIN, JetAi.DATA.COLS)
+                if mis.rect.collidepoint((Jet1.rect.centerx,Jet1.rect.centery)):
+                    mis.DATA.RUNNING = False
+                    text = mis.DATA.font.render("Computer Wins!" , (0,0,0))
+                    text_rect = text[0].get_rect(center=(mis.DATA.SCREEN_WIDTH/2, mis.DATA.SCREEN_HEIGHT/2))
+                    mis.DATA.WIN.blit(text[0], text_rect)
+                    pygame.display.flip()
+                    time.sleep(5)
+            else:
+                mis.move(0)
+                mis.draw(mis.DATA.WIN, JetAi.DATA.COLS)
 
 def ai_move(Jet1, JetAi):
-    target_coord = translate(list(Jet1.rect.center))
-    current_coord = translate(list(JetAi.rect.center))
-    x_dist = target_coord[0] - current_coord[0]
-    y_dist = target_coord[1] - current_coord[1]
-    try:
-        theta = math.atan(y_dist/x_dist) * 57.2957795
-        cx, cy = (1 * math.cos(JetAi.angle/57.2957795)) + JetAi.x, -(1 * math.sin(JetAi.angle/57.2957795)) + JetAi.y
-        alpha = math.atan(cy / cx) * 57.2957795
-    except ZeroDivisionError:
-        theta = 90
-        alpha = 90
-    move_angle = 180 - (theta + alpha)
-    text = Jet1.DATA.font.render(str(move_angle) + "  " + str(JetAi.angle) , (0,0,0))
-    text_rect = text[0].get_rect(center=(Jet1.DATA.SCREEN_WIDTH/2, Jet1.DATA.SCREEN_HEIGHT/2))
-    Jet1.DATA.WIN.blit(text[0], text_rect)
-    if JetAi.angle != Jet1.angle:
-        JetAi.angle - move_angle
-        JetAi.angle + move_angle
-        if move_angle < 180:
-            if JetAi.angle == 360:
-                JetAi.angle = 1
-                JetAi.angle += 1
-            else: 
-                JetAi.angle += 1
-        else:
-            if JetAi.angle == 0:
-                JetAi.angle = 359
-                JetAi.angle -= 1
+    px, py = JetAi.rect.center
+    x,y, = Jet1.rect.center
+    dx, dy = x - px, y - py
+    if math.hypot(dx,dy) < (360):
+            if JetAi.missile_cooldown == True:
+                JetAi.missiles.append(missile.Missile(JetAi.x, JetAi.y, JetAi.angle, JetAi.DATA))
+                JetAi.missile_cooldown_time_int = JetAi.DATA.GLOBAL_TIMER.getTime()
+                JetAi.missileCooldown()
             else:
-                JetAi.angle -= 1
-
-def translate(coords):
-    if coords[0] >= 960:
-        coords[0] =  coords[0] - 960
-    else:
-        coords[0] = -960 + coords[0]
-    if coords[1] >= 540:
-        coords[1] = coords[1] - 540
-    else:
-        coords[1] = -540 + coords[1]
-    return coords
-
-def untranslate(coords):
-    if coords[0] >= 960:
-        coords[0] =  coords[0] + 960
-    else:
-        coords[0] = -960 - coords[0]
-    if coords[1] >= 540:
-        coords[1] = coords[1] + 540
-    else:
-        coords[1] = -540 - coords[1]
-    return coords 
-
+                JetAi.missileCooldown()
+    try:
+        angle = -math.atan(dy/dx) * 57.2957795
+    except ZeroDivisionError:
+        if dy >= 0:
+            angle = 270
+        else:
+            angle = 90
+    if dx < 0:
+        angle += 180
+    JetAi.angle = angle

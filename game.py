@@ -24,15 +24,32 @@ class Game(object):
         sg.ChangeLookAndFeel('Dark')
         
         layout = [[sg.Text('             Please select the option you would like to play!')],      
-                 [sg.B("2 Player", size = (25,1)), sg.B("1 Player", size = (25, 1))]]      
+                 [sg.B("2 Player", size = (25,1)), sg.B("1 Player", size = (25, 1)),sg.B("Options", size = (25,1))]]      
 
         window = sg.Window('CS110 Flight Simulator', layout)    
         event, values = window.read()    
         window.close()
         if event == "2 Player":
             gameType = "2 Player"
-        else:
+        elif event == "1 Player":
             gameType = "1 Player"
+        elif event == "Options":
+            layout = [[sg.Text('             Please select the option you would like to change')],      
+                 [sg.B("AI Speed", size = (25,1)), sg.B("AI Missiles", size = (25, 1)),sg.B("Back to Main Menu", size = (25,1))]]
+            options = sg.Window("CS110 Flight Simulator", layout)
+            event, values = options.read()
+            options.close()
+            if event == "AI Speed":
+                choice, _ = sg.Window('Continue?', [[sg.T('Do you want to continue?')], [sg.Yes(s=10), sg.No(s=10)]], disable_close=True).read(close=True)
+                pass
+            elif event == "AI Missiles":
+                pass
+            elif event == "Back to Main Menu":
+                self.start()
+            else:
+                sys.exit()
+        else:
+            sys.exit()
         self.gameStart(gameType)
   
     def gameStart(self, gameType):
