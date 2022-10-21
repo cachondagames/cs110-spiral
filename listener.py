@@ -58,9 +58,9 @@ def listen_keyboard(Jet1, Jet2 = None):
                 Jet2.missileCooldown()
             else:
                 Jet2.missileCooldown()
-        Jet1.move(.5)
+        Jet1.move(Jet1.DATA.JET_SPEED)
         Jet1.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
-        Jet2.move(.5)
+        Jet2.move(Jet2.DATA.JET_SPEED)
         Jet2.draw(Jet2.DATA.WIN, Jet2.DATA.COLS)
         if len(Jet1.missiles) > 0:
             for mis in Jet1.missiles:
@@ -76,7 +76,7 @@ def listen_keyboard(Jet1, Jet2 = None):
                     Jet1.missiles.pop(Jet1.missiles.index(mis))
                     continue
                 if mis.check:
-                    mis.move(1.5)
+                    mis.move(mis.DATA.MISSILE_SPEED)
                     mis.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
                     if mis.rect.collidepoint((Jet2.rect.centerx,Jet2.rect.centery)):
                         mis.DATA.RUNNING = False
@@ -102,7 +102,7 @@ def listen_keyboard(Jet1, Jet2 = None):
                     Jet2.missiles.pop(Jet2.missiles.index(mis))
                     continue
                 if mis.check:
-                    mis.move(1.5)
+                    mis.move(mis.DATA.MISSILE_SPEED)
                     mis.draw(Jet2.DATA.WIN, Jet2.DATA.COLS)
                     if mis.rect.collidepoint((Jet1.rect.centerx,Jet1.rect.centery)):
                         mis.DATA.RUNNING = False

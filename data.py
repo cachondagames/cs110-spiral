@@ -26,4 +26,7 @@ class Data:
     font = pygame.freetype.SysFont("Comic Sans MS", 80)
     AI_SPEED = 1
     AI_MISSILE_COOLDOWN = 3
+    JET_SPEED = 1.25
+    MISSILE_SPEED = 2.5
+
     
