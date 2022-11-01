@@ -5,6 +5,12 @@ import math
 import time
 
 def listen_keyboard(Jet1, JetAi):
+    """Function that checks for keyboard inputs and handles missile update tracking
+
+    Args:
+        Jet1 (Jet): Player 1 Jet
+        JetAi (Jet, optional): AI Jet
+    """    
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
     key = pygame.key.get_pressed()
@@ -85,6 +91,12 @@ def listen_keyboard(Jet1, JetAi):
                 mis.draw(mis.DATA.WIN, JetAi.DATA.COLS)
 
 def ai_move(Jet1, JetAi):
+    """Currently handles the next AI movement, still need to reimplement NN (Weights)
+
+    Args:
+        Jet1 (Jet): Player 1 Jet
+        JetAi (Jet)): AI Jet
+    """    
     px, py = JetAi.rect.center
     x,y, = Jet1.rect.center
     dx, dy = x - px, y - py
@@ -95,7 +107,7 @@ def ai_move(Jet1, JetAi):
                 JetAi.missileCooldown()
             else:
                 JetAi.missileCooldown()
-    try:
+    try: # Needed because of reverse Y coord, only computes values between -Pi, Pi thus when ontop of eachother vertically will result in a division by 0
         angle = -math.atan(dy/dx) * 57.2957795
     except ZeroDivisionError:
         if dy >= 0:

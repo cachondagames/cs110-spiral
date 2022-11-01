@@ -1,12 +1,22 @@
 from typing import Type
 import data
 import pygame
+import sys
 
-Data = data.Data()
+Data = data.Data() # Doing this because we dont ever call back to it. 
 
 class World:
+    """World Class
+    """    
     
     def draw_tile(self, pic, x, y):
+        """Draws a tile to the screen
+
+        Args:
+            pic (string): G,M,R,T,B,E,bg1. Type of picture to draw
+            x (int): X Coord of top left of photo
+            y (int): Y Coord of top left of photo
+        """        
         path = None
         if pic == "G":
             path = "images/grass.png"
@@ -28,6 +38,8 @@ class World:
         Data.BACKGROUND.blit(temppic, (x * 16, y * 9))
 
     def draw_world(self):
+        """Attempted to draw the world to the screen, will only ever draw the entire world once, if the world has already been draw it will load a presaved image instead to save time.
+        """        
         try:
             pygame.image.load("images/background1.png")
         except FileNotFoundError:
@@ -39,8 +51,8 @@ class World:
                         self.draw_tile(item, x_temp, y_temp)
                         x_temp += 1
                     y_temp += 1
-                pygame.image.save(Data.BACKGROUND, "images/background1.png")
+                pygame.image.save(Data.BACKGROUND, "images/background1.png") # Saves the drawn background to WD for use again.
             except TypeError:
-                print(x_temp, y_temp)
+                sys.exit()
         else:
             self.draw_tile("bg1", 0, 0)

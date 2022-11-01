@@ -4,7 +4,13 @@ import missile
 import time
 
 def listen_keyboard(Jet1, Jet2 = None):
-    if Jet2 == None:
+    """Function that checks for keyboard inputs and handles missile update tracking
+
+    Args:
+        Jet1 (Jet): Player 1 Jet
+        Jet2 (Jet, optional): Player 2/AI Jet. Defaults to None.
+    """    
+    if Jet2 == None: ## Deprecated but too scared to delete
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
         key = pygame.key.get_pressed()
