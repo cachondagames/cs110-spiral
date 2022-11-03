@@ -10,12 +10,12 @@ class Data:
     SCREEN_WIDTH = 1920 # Need to change to dynamic
     SCREEN_HEIGHT = 1080 # Need to change to dynnamic
     GRID_DIM = 15 # ???
-    WORLD = ip.initialize("1920_by_1080.csv") # Can select the map currently on my one, however if you choose a smaller map the program will break...
+    WORLD = ip.initialize("maps/1920_by_1080.csv") # Can select the map currently on my one, however if you choose a smaller map the program will break...
     img_w = 16 # Deprecated
     img_h = 9 # Deprecated
     dims = width, height = SCREEN_WIDTH, SCREEN_HEIGHT # PYGAME IS WERID
     WIN = pygame.display.set_mode(dims)
-    COLS = pygame.Surface((1920,1080))
+    COLS = pygame.Surface(dims)
     COLS.set_alpha(0) # Makes the surface invisible
     pygame.display.set_caption('CS110 Flight Simulator')
     icon = pygame.image.load("images/airplane.jpg")
