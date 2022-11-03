@@ -24,7 +24,17 @@ def listen_keyboard(Jet1, JetAi):
             Jet1.angle = 359
         else:
             Jet1.angle -= 1
-    Jet1.move(2)
+    if key[pygame.K_UP]:
+        if Jet1.DATA.JET_SPEED + .02 >= 7:
+            Jet1.DATA.JET_SPEED = 7
+        else:
+            Jet1.DATA.JET_SPEED += .02
+    if key[pygame.K_DOWN]:
+        if Jet1.DATA.JET_SPEED - .02 <= .1:
+            Jet1.DATA.JET_SPEED = .1
+        else:
+            Jet1.DATA.JET_SPEED -= .02
+    Jet1.move(Jet1.DATA.JET_SPEED)
     Jet1.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
     ai_move(Jet1, JetAi)
     JetAi.move(JetAi.DATA.AI_SPEED)
@@ -51,7 +61,7 @@ def listen_keyboard(Jet1, JetAi):
                 Jet1.missiles.pop(Jet1.missiles.index(mis))
                 continue
             if mis.check:
-                mis.move(1.5)
+                mis.move(Jet1.DATA.MISSILE_SPEED)
                 mis.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
                 if mis.rect.collidepoint((JetAi.rect.centerx,JetAi.rect.centery)):
                     mis.DATA.RUNNING = False
@@ -77,7 +87,7 @@ def listen_keyboard(Jet1, JetAi):
                 JetAi.missiles.pop(JetAi.missiles.index(mis))
                 continue
             if mis.check:
-                mis.move(1.5)
+                mis.move(JetAi.DATA.MISSILE_SPEED)
                 mis.draw(JetAi.DATA.WIN, JetAi.DATA.COLS)
                 if mis.rect.collidepoint((Jet1.rect.centerx,Jet1.rect.centery)):
                     mis.DATA.RUNNING = False

@@ -24,7 +24,17 @@ def listen_keyboard(Jet1, Jet2 = None):
                 Jet1.angle = 359
             else:
                 Jet1.angle -= 1
-        Jet1.move(1)
+        if key[pygame.K_UP]:
+            if Jet1.DATA.JET_SPEED + .02 >= 7:
+                Jet1.DATA.JET_SPEED = 7
+            else:
+                Jet1.DATA.JET_SPEED += .02
+        if key[pygame.K_DOWN]:
+            if Jet1.DATA.JET_SPEED - .02 <= .1:
+                Jet1.DATA.JET_SPEED = .1
+            else:
+                Jet1.DATA.JET_SPEED -= .02
+        Jet1.move(Jet1.DATA.JET_SPEED)
         Jet1.draw(Jet1.DATA.WIN)
     else:
         for event in pygame.event.get():
@@ -40,6 +50,16 @@ def listen_keyboard(Jet1, Jet2 = None):
                 Jet1.angle = 359
             else:
                 Jet1.angle -= 1
+        if key[pygame.K_UP]:
+            if Jet1.DATA.JET_SPEED + .02 >= 7:
+                Jet1.DATA.JET_SPEED = 7
+            else:
+                Jet1.DATA.JET_SPEED += .02
+        if key[pygame.K_DOWN]:
+            if Jet1.DATA.JET_SPEED - .02 <= .1:
+                Jet1.DATA.JET_SPEED = .1
+            else:
+                Jet1.DATA.JET_SPEED -= .02
         if key[pygame.K_a]:
             if Jet2.angle == 360:
                 Jet2.angle = 1
@@ -50,6 +70,16 @@ def listen_keyboard(Jet1, Jet2 = None):
                 Jet2.angle = 359
             else:
                 Jet2.angle -= 1
+        if key[pygame.K_w]:
+            if Jet2.DATA.JET_SPEED_2 + .02 >= 7:
+                Jet2.DATA.JET_SPEED_2 = 7
+            else:
+                Jet2.DATA.JET_SPEED_2 += .02
+        if key[pygame.K_s]:
+            if Jet2.DATA.JET_SPEED_2 - .02 <= .1:
+                Jet2.DATA.JET_SPEED_2 = .1
+            else:
+                Jet2.DATA.JET_SPEED_2 -= .02
         if key[pygame.K_SPACE]:
             if Jet1.missile_cooldown == True:
                 Jet1.missiles.append(missile.Missile(Jet1.x, Jet1.y, Jet1.angle, Jet1.DATA))
@@ -66,7 +96,7 @@ def listen_keyboard(Jet1, Jet2 = None):
                 Jet2.missileCooldown()
         Jet1.move(Jet1.DATA.JET_SPEED)
         Jet1.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
-        Jet2.move(Jet2.DATA.JET_SPEED)
+        Jet2.move(Jet2.DATA.JET_SPEED_2)
         Jet2.draw(Jet2.DATA.WIN, Jet2.DATA.COLS)
         if len(Jet1.missiles) > 0:
             for mis in Jet1.missiles:
