@@ -103,7 +103,7 @@ class Game(object):
                 sys.exit()
         else:
             sys.exit()
-        self.gameStart(gameType)
+        self.gameStart(gameType) # type: ignore
   
     def gameStart(self, gameType):
         """Actually begins the gameplay based on the type of game selected
