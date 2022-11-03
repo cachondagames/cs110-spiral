@@ -3,6 +3,8 @@ Flight Simulator, if thats what you really wanana call it. Pretty sucffed meant 
 
 Controls:
 
+
+
 Player 1:
 
 Left Arrow: Turn Left
@@ -14,6 +16,8 @@ Up Arrow: Accelerate
 Down Arrow: Decelerate
 
 Space: Shoot Missile
+
+
 
 Player 2:
 
@@ -28,9 +32,12 @@ S: Decelerate
 L-Shift: Shoot Missile
 
 
+
+
 Objective: 
 
 Shoot down the enemy jet
+
 
 Dependencies:
 
