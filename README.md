@@ -5,19 +5,28 @@ Controls:
 
 Player 1:
 
-Left Arrow: Turn Left \n
+Left Arrow: Turn Left
+
 Right Arrow: Turn Right
+
 Up Arrow: Accelerate
+
 Down Arrow: Decelerate
+
 Space: Shoot Missile
 
 Player 2:
 
 A: Turn Left
+
 D: Turn Right
+
 W: Accelerate
+
 S: Decelerate
+
 L-Shift: Shoot Missile
+
 
 Objective: 
 
