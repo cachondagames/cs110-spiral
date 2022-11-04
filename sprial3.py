@@ -1,7 +1,7 @@
 # -----------------------------------------
-# Title: Course Project - Spiral 2
-# Author: 
-# Section:
+# Title: Course Project - Spiral 3
+# Author: Hunter Thomas
+# Section: M4
 # Documentation in canvas submission
 # -----------------------------------------
 
