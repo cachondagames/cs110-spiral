@@ -98,6 +98,9 @@ class Missile():
             return True
         else:
             return False
+    
+    def heatseeker(self):
+        pass
    
 def rotate_point(rx, ry, angle, px, py):
     """Roatate any point x angle
