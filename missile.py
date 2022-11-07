@@ -21,7 +21,7 @@ def dist_point(x1, y1, x2, y2):
 class Missile():
     """My own missile class
     """    
-    def __init__(self, xcoord, ycoord, angle, data):
+    def __init__(self, xcoord: float, ycoord: float, angle: float, data: data.Data, heatseek: bool = False):
         """Missile start
 
         Args:
@@ -29,6 +29,7 @@ class Missile():
             ycoord (double): Starting Y Coord
             angle (double): Angle at which it is traveling
             data (Data): Data Set
+            heatseek (bool): Heatseeker or not?
         """        
         self.x = xcoord
         self.y = ycoord
@@ -41,6 +42,7 @@ class Missile():
         self.yint = ycoord
         self.timeexploded = None
         self.check = True
+        self.heatseek = heatseek
         
     def draw(self, win, col):
         """Draws the missile onto the screen
@@ -99,8 +101,20 @@ class Missile():
         else:
             return False
     
-    def heatseeker(self):
-        pass
+    def heatseeker(self, Jet1):
+            px, py = self.rect.center
+            x,y, = Jet1.rect.center
+            dx, dy = x - px, y - py
+            try: # Needed because of reverse Y coord, only computes values between -Pi, Pi thus when ontop of eachother vertically will result in a division by 0
+                angle = -math.atan(dy/dx) * 57.2957795
+            except ZeroDivisionError:
+                if dy >= 0:
+                    angle = 270
+                else:
+                    angle = 90
+            if dx < 0:
+                angle += 180
+            self.angle = angle
    
 def rotate_point(rx, ry, angle, px, py):
     """Roatate any point x angle
