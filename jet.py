@@ -1,10 +1,13 @@
 import pygame
 import math
+import missile
+import data as d
+
 
 class Jet(pygame.Surface):
     """Jet Object, Creates a brand new jet
     """    
-    def __init__(self, xcoord, ycoord, second, data, AI = False):
+    def __init__(self, xcoord: float, ycoord:float , second: bool, data, AI = False):
         """Initals values of Jet
 
         Args:
@@ -14,12 +17,12 @@ class Jet(pygame.Surface):
             data (data): Interal data structure
             AI (bool, optional): Is jet AI or not. Defaults to False.
         """        
-        self.missiles = []
-        self.second = second
-        self.DATA = data
+        self.missiles:list[missile.Missile] = []
+        self.second: bool = second
+        self.DATA: d.Data = data
         self.x = xcoord
         self.y = ycoord
-        self.missile_cooldown = True
+        self.missile_cooldown: bool = True
         self.missile_cooldown_time_int = None
         self.missile_cooldown_time_final = None
         if second == True:
@@ -28,12 +31,12 @@ class Jet(pygame.Surface):
         else:
             self.plane = pygame.image.load("images/friendly_fighter_east.png")
             self.plane = pygame.transform.scale(self.plane, (50, 50))
-        self.rect = self.plane.get_rect()
-        self.angle = 0
-        self.vect = pygame.Vector2(self.rect.centerx,self.rect.centery)
-        self.AI = AI
+        self.rect: pygame.rect.Rect = self.plane.get_rect()
+        self.rect_heat: pygame.rect.Rect = self.plane.get_rect()
+        self.angle: float = 0
+        self.AI: bool = AI
     
-    def draw(self, win, col):
+    def draw(self, win: pygame.surface.Surface, col: pygame.Surface):
         """Draws the jet onto the screen
 
         Args:
@@ -45,10 +48,18 @@ class Jet(pygame.Surface):
         x1, y1 = rotate_point(self.x - 20, self.y + 10, self.angle/57.2957795, self.x, self.y)
         x2, y2 = rotate_point(self.x - 20, self.y - 10, self.angle/57.2957795, self.x, self.y)
         x3, y3 = rotate_point(self.x + 20, self.y, self.angle/57.2957795, self.x, self.y)
+        
+        xc, yc = rotate_point(self.x + 40, self.y, self.angle/57.2957795, self.x, self.y)
+        xL_1, yL_1 = rotate_point(self.x + 40, self.y - 40, self.angle/57.2957795, self.x, self.y)
+        xL_2, yL_2 = rotate_point(self.x + 200, self.y - 150, self.angle/57.2957795, self.x, self.y)
+        xR_1, yR_1 = rotate_point(self.x + 40, self.y + 40, self.angle/57.2957795, self.x, self.y)
+        xR_2, yR_2 = rotate_point(self.x + 200, self.y + 150, self.angle/57.2957795, self.x, self.y)
+        xM, yM = rotate_point(self.x + 200, self.y, self.angle/57.2957795, self.x, self.y)        
         self.rect = pygame.draw.polygon(col, (0,255,0), ( (x1,y1) , (x2,y2), (x3,y3) ) )
+        self.rect_heat = pygame.draw.polygon(col, (255,0,0), ( (xc,yc) , (xL_1,yL_1), (xL_2,yL_2), (xM, yM), (xR_2, yR_2), (xR_1,yR_1) ) )
         win.blit(img_copy, rotated_rect)
         
-    def move(self, speed):
+    def move(self, speed: float):
         """Moves the jet
 
         Args:
@@ -85,9 +96,14 @@ class Jet(pygame.Surface):
                 self.missile_cooldown = True
             else:
                 self.missile_cooldown = False
+    
+    def checkheatseek(self, Jet: "Jet") -> bool:
+        if (self.rect_heat.contains(Jet.rect)):
+            return True
+        return False
 
     
-def rotate_point(rx, ry, angle, px, py):
+def rotate_point(rx: float, ry: float, angle: float, px: float, py: float) -> tuple[float, float]:
     """Roatate any point x angle
 
     Args:
@@ -98,7 +114,7 @@ def rotate_point(rx, ry, angle, px, py):
         py (double): Point Y of rotation
 
     Returns:
-        tuple : Returns a tuple with double of the new point x , y
+        tuple : Returns a tuple with float of the new point x , y
     """
     s = math.sin(angle)
     c = math.cos(angle)
