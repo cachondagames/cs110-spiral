@@ -64,7 +64,7 @@ def listen_keyboard(Jet1: jet.Jet, JetAi: jet.Jet):
             if mis.check:
                 if mis.heatseek:
                     mis.heatseeker(JetAi)
-                mis.move(Jet1.DATA.MISSILE_SPEED)
+                mis.move(Jet1.DATA.MISSILE_SPEED + Jet1.DATA.JET_SPEED)
                 mis.draw(Jet1.DATA.WIN, Jet1.DATA.COLS)
                 if mis.rect.collidepoint((JetAi.rect.centerx,JetAi.rect.centery)):
                     mis.DATA.RUNNING = False  # type: ignore
@@ -92,7 +92,7 @@ def listen_keyboard(Jet1: jet.Jet, JetAi: jet.Jet):
             if mis.check:
                 if mis.heatseek:
                     mis.heatseeker(Jet1)
-                mis.move(JetAi.DATA.MISSILE_SPEED)
+                mis.move(JetAi.DATA.MISSILE_SPEED + JetAi.DATA.JET_SPEED)
                 mis.draw(JetAi.DATA.WIN, JetAi.DATA.COLS)
                 if mis.rect.collidepoint((Jet1.rect.centerx,Jet1.rect.centery)):
                     mis.DATA.RUNNING = False  # type: ignore

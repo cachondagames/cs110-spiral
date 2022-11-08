@@ -87,7 +87,7 @@ class Jet(pygame.Surface):
             Boolean : Does not return, sets Jet interal value to either T/F
         """        
         if self.AI == False:
-            if self.DATA.GLOBAL_TIMER.getTime() - self.missile_cooldown_time_int >= 3:
+            if self.DATA.GLOBAL_TIMER.getTime() - self.missile_cooldown_time_int >= self.DATA.MISSILE_COOLDOWN:
                 self.missile_cooldown = True
             else:
                 self.missile_cooldown = False

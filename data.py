@@ -30,5 +30,6 @@ class Data:
     JET_SPEED = 1.5
     JET_SPEED_2 = 1.5
     MISSILE_SPEED = 4.0
+    MISSILE_COOLDOWN = 2.0
 
     

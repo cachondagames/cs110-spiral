@@ -40,7 +40,7 @@ class Game(object):
             gameType = "1 Player"
         elif event == "Options":
             layout = [[sg.Text('             Please select the option you would like to change')],      
-                 [sg.B("AI Speed", size = (25,1)), sg.B("AI Missile Cooldown", size = (25, 1)), sg.B("Missile Speed", size = (25,1)), sg.B("Jet Speed", size = (25,1)) ,sg.B("Back to Main Menu", size = (25,1))]]
+                 [sg.B("AI Speed", size = (25,1)), sg.B("AI Missile Cooldown", size = (25, 1)), sg.B("Missile Speed", size = (25,1)), sg.B("Jet Speed", size = (25,1)), sg.B("Missile Cooldown Time", size = (25,1)) ,sg.B("Back to Main Menu", size = (25,1))]]
             options = sg.Window("CS110 Flight Simulator", layout)
             event, values = options.read()  # type: ignore
             options.close()
@@ -95,6 +95,19 @@ class Game(object):
                     if event == sg.WIN_CLOSED or event == 'Exit':
                         break
                 self.DATA.JET_SPEED = values["-SLIDER-"]
+                choice.close()
+                self.start()
+            elif event == "Missile Cooldown Time":
+                choice = sg.Window('Missile Cooldown Time', layout = [[sg.Text('                    Missile Cooldown Slider Slider', key='-OUTPUT-')],
+                                                            [sg.T('0',size=(4,1), key='-LEFT-'),
+                                                            sg.Slider((0,3), key='-SLIDER-', orientation='h', enable_events=True, disable_number_display=False, default_value = self.DATA.MISSILE_COOLDOWN, resolution=.1),
+                                                            sg.T('MAX', size=(4,1), key='-RIGHT-')],
+                                                            [sg.Button('Exit')]])
+                while True:             # Event Loop
+                    event, values = choice.read() # type: ignore
+                    if event == sg.WIN_CLOSED or event == 'Exit':
+                        break
+                self.DATA.MISSILE_COOLDOWN = values["-SLIDER-"]
                 choice.close()
                 self.start()
             elif event == "Back to Main Menu":
